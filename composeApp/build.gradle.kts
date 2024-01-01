@@ -35,6 +35,7 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.ktor.engine.android)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -43,9 +44,17 @@ kotlin {
             implementation(compose.ui)
             @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network)
         }
+
+        iosMain.dependencies{
+            implementation(libs.ktor.engine.ios)
+        }
+
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
+            implementation(libs.ktor.engine.js)
         }
     }
 }
