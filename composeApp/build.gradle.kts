@@ -31,11 +31,13 @@ kotlin {
     
     sourceSets {
         val desktopMain by getting
-        
+
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.ktor.engine.android)
         }
+
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -45,9 +47,16 @@ kotlin {
             @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
             implementation(libs.coil.compose)
+            implementation(libs.napier)
+            implementation(libs.coil.network)
         }
+        iosMain.dependencies {
+            implementation(libs.ktor.engine.ios)
+        }
+
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
+            implementation(libs.ktor.engine.js)
         }
     }
 }
@@ -56,9 +65,13 @@ android {
     namespace = "org.moneyking.imagepicker"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    sourceSets["main"].res.srcDirs("src/androidMain/res")
-    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
+    sourceSets {
+        named("main") {
+            manifest.srcFile("src/androidMain/AndroidManifest.xml")
+            res.srcDirs("src/androidMain/res")
+            resources.srcDirs("src/commonMain/resources")
+        }
+    }
 
     defaultConfig {
         applicationId = "org.moneyking.imagepicker"

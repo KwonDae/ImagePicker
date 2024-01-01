@@ -18,8 +18,10 @@ compose-plugin = "1.5.11"
 junit = "4.13.2"
 kotlin = "1.9.21"
 coil3 = "3.0.0-alpha01"
+ktor = "2.3.7"
 hiltVersion = "2.47"
 hiltCompilerVersion = "1.1.0"
+napier = "2.6.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -41,11 +43,17 @@ compose-foundation = { module = "androidx.compose.foundation:foundation", versio
 compose-material = { module = "androidx.compose.material:material", version.ref = "compose" }
 compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil3" }
+coil-network = { module = "io.coil-kt.coil3:coil-network", version.ref = "coil3" }
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-engine-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
+ktor-engine-ios = { module = "io.ktor:ktor-client-ios", version.ref = "ktor" }
+ktor-engine-js = { module = "io.ktor:ktor-client-js", version.ref = "ktor" }
 
 hiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "hiltVersion" }
 hiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltVersion" }
 hiltCompiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hiltCompilerVersion" }
 hiltNavigationCompose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltCompilerVersion" }
+napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

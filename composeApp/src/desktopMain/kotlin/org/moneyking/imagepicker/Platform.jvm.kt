@@ -1,4 +1,4 @@
-import org.moneyking.imagepicker.Platform
+package org.moneyking.imagepicker
 
 class JVMPlatform: Platform {
     override val name: String = "Java ${System.getProperty("java.version")}"

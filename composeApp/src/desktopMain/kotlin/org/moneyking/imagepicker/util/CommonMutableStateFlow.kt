@@ -1,10 +1,9 @@
 
-package util
+package org.moneyking.imagepicker.util
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import org.moneyking.imagepicker.util.CommonStateFlow
 
 actual open class CommonMutableStateFlow<T> actual constructor(
     private val flow: MutableStateFlow<T>
