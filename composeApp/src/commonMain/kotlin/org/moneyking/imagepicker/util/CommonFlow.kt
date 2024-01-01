@@ -3,7 +3,7 @@
  *
  */
 
-package util
+package org.moneyking.imagepicker.util
 
 import kotlinx.coroutines.flow.Flow
 

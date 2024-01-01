@@ -1,3 +1,5 @@
+package org.moneyking.imagepicker
+
 class Greeting {
     private val platform = getPlatform()
 

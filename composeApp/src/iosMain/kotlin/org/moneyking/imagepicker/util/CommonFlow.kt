@@ -1,5 +1,5 @@
 
-package util
+package org.moneyking.imagepicker.util
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope

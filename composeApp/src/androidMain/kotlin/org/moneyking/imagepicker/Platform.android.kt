@@ -1,3 +1,5 @@
+package org.moneyking.imagepicker
+
 import android.os.Build
 
 class AndroidPlatform : Platform {

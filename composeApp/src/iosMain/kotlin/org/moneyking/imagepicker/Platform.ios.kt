@@ -1,3 +1,5 @@
+package org.moneyking.imagepicker
+
 import platform.UIKit.UIDevice
 
 class IOSPlatform: Platform {
