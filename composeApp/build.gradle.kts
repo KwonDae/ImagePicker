@@ -81,6 +81,7 @@ android {
     }
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
+        implementation(libs.coil.compose)
     }
 }
 
@@ -94,4 +95,8 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
+}
+
+task("testClasses").doLast {
+    println("This is a dummy testClasses task")
 }
