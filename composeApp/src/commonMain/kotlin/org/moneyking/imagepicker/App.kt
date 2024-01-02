@@ -11,10 +11,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.SnackbarHost
-import androidx.compose.material.SnackbarHostState
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -42,9 +42,11 @@ fun App(
         val pagerState = rememberPagerState(pageCount = { pageCount })
         val pagerHeight = 320.dp
 
-        Scaffold(snackbarHost = { SnackbarHost(snackbarHostState) }) {
+        Scaffold(snackbarHost = {
+            SnackbarHost(snackbarHostState)
+        }) { innerPadding ->
             Column(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize().padding(innerPadding),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
             ) {
@@ -68,7 +70,8 @@ fun App(
                 ImagePickerButton(
                     onClick = {},
                     text = "Pick Single Image",
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
                         .height(56.dp)
                         .padding(horizontal = 24.dp),
                 )
