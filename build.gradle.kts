@@ -8,11 +8,7 @@ plugins {
 }
 
 buildscript {
-    repositories {
-        gradlePluginPortal()
-    }
-
     dependencies {
-        classpath(libs.moko.classpath)
+        classpath(libs.moko.resources.generator)
     }
 }

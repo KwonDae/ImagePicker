@@ -52,7 +52,7 @@ hiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", vers
 hiltCompiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hiltCompilerVersion" }
 hiltNavigationCompose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltCompilerVersion" }
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
-moko-classpath = { group = "dev.icerock.moko", name = "resources-generator", version.ref = "moko-resources" }
+moko-resources-generator = { group = "dev.icerock.moko", name = "resources-generator", version.ref = "moko-resources" }
 moko-resource = { group = "dev.icerock.moko", name = "resources", version.ref = "moko-resources" }
 moko-resource-compose = { group = "dev.icerock.moko", name = "resources-compose", version.ref = "moko-resources" }
 
