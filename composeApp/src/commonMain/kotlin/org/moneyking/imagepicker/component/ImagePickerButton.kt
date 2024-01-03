@@ -11,8 +11,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import dev.icerock.moko.resources.compose.fontFamilyResource
+import org.moneyking.imagepicker.MR
 import org.moneyking.imagepicker.theme.Gray900
 
 @Composable
@@ -32,8 +36,11 @@ fun ImagePickerButton(
             text = text,
             modifier = Modifier.padding(horizontal = 16.dp),
             color = White,
-            fontSize = 24.sp,
-            lineHeight = 32.sp,
+            fontFamily = fontFamilyResource(MR.fonts.Pretendard.semiBold),
+            fontWeight = FontWeight.SemiBold,
+            fontStyle = FontStyle.Normal,
+            fontSize = 18.sp,
+            lineHeight = 27.sp,
         )
     }
 }

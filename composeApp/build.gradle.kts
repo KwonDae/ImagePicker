@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
+    id ("dev.icerock.mobile.multiplatform-resources")
 }
 
 kotlin {
@@ -32,6 +33,16 @@ kotlin {
     sourceSets {
         val desktopMain by getting
 
+        val iosX64Main by getting {
+            resources.srcDirs("build/generated/moko/iosX64Main/src")
+        }
+        val iosArm64Main by getting {
+            resources.srcDirs("build/generated/moko/iosArm64Main/src")
+        }
+        val iosSimulatorArm64Main by getting {
+            resources.srcDirs("build/generated/moko/iosSimulatorArm64Main/src")
+        }
+
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
@@ -49,6 +60,7 @@ kotlin {
             implementation(libs.napier)
             implementation(libs.coil.network)
         }
+
         iosMain.dependencies {
             implementation(libs.ktor.engine.ios)
         }
@@ -68,6 +80,7 @@ android {
             manifest.srcFile("src/androidMain/AndroidManifest.xml")
             res.srcDirs("src/androidMain/res")
             resources.srcDirs("src/commonMain/resources")
+            java.srcDirs("build/generated/moko/androidMain/src")
         }
     }
 
@@ -95,6 +108,7 @@ android {
     dependencies {
         debugImplementation(libs.compose.ui.tooling)
         implementation(libs.coil.compose)
+        commonMainApi(libs.bundles.moko.resources)
     }
 }
 
@@ -108,6 +122,10 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
+}
+
+multiplatformResources {
+    multiplatformResourcesPackage = "org.moneyking.imagepicker"
 }
 
 task("testClasses").doLast {
