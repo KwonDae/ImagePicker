@@ -24,3 +24,4 @@ Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-mu
 
 # Article
 - [[Compose Multiplatform] Coil 을 이용한 Network Image Load](https://velog.io/@mraz3068/How-to-load-Network-Image-by-Coil-in-Compose-Multiplatform)
+- [[Compose Multiplatform] moko-resources 를 이용하여 font 적용하기](https://velog.io/@mraz3068/Compose-multiplatform-apply-font-by-moko-resources)
