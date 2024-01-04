@@ -81,12 +81,14 @@ fun App(
                             modifier = Modifier.fillMaxSize(),
                         )
                     }
-                    HorizontalPagerIndicator(
-                        pageCount = pageCount,
-                        currentPage = pagerState.currentPage,
-                        targetPage = pagerState.targetPage,
-                        currentPageOffsetFraction = pagerState.currentPageOffsetFraction,
-                    )
+                    if (pageCount > 1) {
+                        HorizontalPagerIndicator(
+                            pageCount = pageCount,
+                            currentPage = pagerState.currentPage,
+                            targetPage = pagerState.targetPage,
+                            currentPageOffsetFraction = pagerState.currentPageOffsetFraction,
+                        )
+                    }
                     Spacer(modifier = Modifier.height(32.dp))
                 }
 
