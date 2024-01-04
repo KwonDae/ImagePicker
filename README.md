@@ -16,11 +16,11 @@ Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-mu
 # ToDo
 - [x] 프로젝트에 필요한 라이브러리 의존성 추가
 - [x] 이미지 피커 UI 구성
-- [ ] 공통 로직 작성(expect)
-- [ ] Android 이미지 피커 로직 구현(actual)
+- [x] 공통 로직 작성(expect)
+- [x] Android 이미지 피커 로직 구현(actual)
 - [ ] iOS 이미지 피커 로직 구현(actual)
 - [ ] [TouchLab SKIE](https://skie.touchlab.co/) 라이브러리 적용(CommonFlow 를 대체)
-- [x] [moko-resources](https://github.com/icerockdev/moko-resources) 라이브러리 적용(optional)
+- [x] [moko-resources](https://github.com/icerockdev/moko-resources) 라이브러리 적용(Font, String(i18n))
 
 # Article
 - [[Compose Multiplatform] Coil 을 이용한 Network Image Load](https://velog.io/@mraz3068/How-to-load-Network-Image-by-Coil-in-Compose-Multiplatform)
