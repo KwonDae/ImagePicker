@@ -18,17 +18,15 @@ import kotlinx.coroutines.CoroutineScope
 @Composable
 expect fun rememberImagePickerLauncher(
     selectionMode: SelectionMode = SelectionMode.Single,
-    scope: CoroutineScope,
     onResult: (List<Uri>) -> Unit,
 ): ImagePickerLauncher
 
 sealed class SelectionMode {
     data object Single : SelectionMode()
-    data class Multiple(val limit: Int) : SelectionMode()
+    data object Multiple : SelectionMode()
 }
 
 expect class ImagePickerLauncher(
-    selectionMode: SelectionMode,
     onLaunch: () -> Unit
 ) {
     fun launch()

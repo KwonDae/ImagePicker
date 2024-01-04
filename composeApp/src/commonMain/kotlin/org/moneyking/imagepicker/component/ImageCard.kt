@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import coil3.Uri
 import coil3.compose.AsyncImage
 import coil3.compose.AsyncImagePainter
 import coil3.compose.LocalPlatformContext
@@ -22,7 +23,7 @@ import org.moneyking.imagepicker.theme.Gray200
 
 @Composable
 fun ImageCard(
-    imageUrl: String,
+    imageUrl: Uri,
     modifier: Modifier = Modifier,
 ) {
     Card(
