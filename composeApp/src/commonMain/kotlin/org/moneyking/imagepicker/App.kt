@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,18 +42,20 @@ fun App(
     setSingletonImageLoaderFactory { context ->
         newImageLoader(context, debug)
     }
-
-    var images by remember { mutableStateOf(listOf<Uri>()) }
+    val scope = rememberCoroutineScope()
+    var images by remember { mutableStateOf(listOf<Any>()) }
     val singlePhotoPicker = rememberImagePickerLauncher(
         selectionMode = SelectionMode.Single,
-        onResult = { uri ->
-            images = uri
+        scope = scope,
+        onResult = { imageData ->
+            images = imageData
         }
     )
     val multiplePhotoPicker = rememberImagePickerLauncher(
         selectionMode = SelectionMode.Multiple,
-        onResult = { uriList ->
-            images = uriList
+        scope = scope,
+        onResult = { imageDataList ->
+            images = imageDataList
         }
     )
 
@@ -76,10 +79,28 @@ fun App(
                         modifier = Modifier.height(pagerHeight),
                         contentPadding = PaddingValues(horizontal = 32.dp),
                     ) { index ->
-                        ImageCard(
-                            imageUrl = images[index],
-                            modifier = Modifier.fillMaxSize(),
-                        )
+                        val image = images[index]
+                        when (image) {
+                            is Uri -> {
+                                ImageCard(
+                                    imageUrl = image,
+                                    modifier = Modifier.fillMaxSize(),
+                                )
+                            }
+
+                            is ByteArray -> {
+                                ImageCard(
+                                    imageUrl = image,
+                                    modifier = Modifier.fillMaxSize(),
+                                )
+                            }
+
+                            else -> {
+                                require(image is Uri || image is ByteArray) {
+                                    "Unsupported image type: ${image::class}"
+                                }
+                            }
+                        }
                     }
                     if (pageCount > 1) {
                         HorizontalPagerIndicator(

@@ -6,7 +6,6 @@
 package org.moneyking.imagepicker.launcher
 
 import androidx.compose.runtime.Composable
-import coil3.Uri
 import kotlinx.coroutines.CoroutineScope
 
 /**
@@ -17,8 +16,9 @@ import kotlinx.coroutines.CoroutineScope
  */
 @Composable
 expect fun rememberImagePickerLauncher(
+    onResult: (List<Any>) -> Unit,
+    scope: CoroutineScope?,
     selectionMode: SelectionMode = SelectionMode.Single,
-    onResult: (List<Uri>) -> Unit,
 ): ImagePickerLauncher
 
 sealed class SelectionMode {
@@ -27,7 +27,7 @@ sealed class SelectionMode {
 }
 
 expect class ImagePickerLauncher(
-    onLaunch: () -> Unit
+    onLaunch: () -> Unit,
 ) {
     fun launch()
 }
