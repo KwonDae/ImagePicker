@@ -119,7 +119,7 @@ fun App(
                     onClick = {
                         images = emptyList()
                     },
-                    text = stringResource(MR.strings.init),
+                    text = stringResource(MR.strings.reset),
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp)
