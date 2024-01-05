@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="pick_single_image">Pick Single Images</string>
+    <string name="pick_multiple_images">Pick Multiple Images</string>
+    <string name="init">Init</string>
+</resources>
