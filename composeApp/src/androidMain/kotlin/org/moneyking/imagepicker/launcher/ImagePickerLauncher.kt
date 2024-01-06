@@ -10,14 +10,15 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalContext
 import coil3.Uri
 import coil3.toUri
+import kotlinx.coroutines.CoroutineScope
 
 @Composable
 actual fun rememberImagePickerLauncher(
+    onResult: (List<Any>) -> Unit,
+    scope: CoroutineScope?,
     selectionMode: SelectionMode,
-    onResult: (List<Uri>) -> Unit,
 ): ImagePickerLauncher {
     return when (selectionMode) {
         SelectionMode.Single -> {
@@ -54,9 +55,8 @@ private fun singlePhotoPicker(
 
 @Composable
 private fun multiplePhotoPicker(
-    onResult: (List<Uri>) -> Unit,
+    onResult: (List<Any>) -> Unit,
 ): ImagePickerLauncher {
-    val context = LocalContext.current
     val multiplePhotoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickMultipleVisualMedia(),
         onResult = { uriList ->
@@ -74,7 +74,7 @@ private fun multiplePhotoPicker(
 }
 
 actual class ImagePickerLauncher actual constructor(
-    private val onLaunch: () -> Unit
+    private val onLaunch: () -> Unit,
 ) {
     actual fun launch() {
         onLaunch()

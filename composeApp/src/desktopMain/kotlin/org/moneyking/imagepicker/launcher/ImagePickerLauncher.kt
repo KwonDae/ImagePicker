@@ -6,18 +6,19 @@
 package org.moneyking.imagepicker.launcher
 
 import androidx.compose.runtime.Composable
-import coil3.Uri
+import kotlinx.coroutines.CoroutineScope
 
 @Composable
 actual fun rememberImagePickerLauncher(
+    onResult: (List<Any>) -> Unit,
+    scope: CoroutineScope?,
     selectionMode: SelectionMode,
-    onResult: (List<Uri>) -> Unit,
 ): ImagePickerLauncher {
     TODO()
 }
 
 actual class ImagePickerLauncher actual constructor(
-    onLaunch: () -> Unit
+    private val onLaunch: () -> Unit,
 ) {
     actual fun launch() {
         TODO()
