@@ -40,7 +40,9 @@ private fun singlePhotoPicker(
     val singlePhotoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
         onResult = { uri ->
-            onResult(uri.toString().toUri())
+            uri?.let {
+                onResult(it.toString().toUri())
+            }
         }
     )
     val imagePickerLauncher = remember {
@@ -60,7 +62,9 @@ private fun multiplePhotoPicker(
     val multiplePhotoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickMultipleVisualMedia(),
         onResult = { uriList ->
-            onResult(uriList.map { it.toString().toUri() })
+            onResult(uriList.map { uri ->
+                uri.toString().toUri()
+            })
         }
     )
     val imagePickerLauncher = remember {
