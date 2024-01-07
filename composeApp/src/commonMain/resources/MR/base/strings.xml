@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="pick_single_image">사진 한 장 선택하기</string>
+    <string name="pick_multiple_images">사진 여러 장 선택하기</string>
+    <string name="reset">초기화</string>
+</resources>
