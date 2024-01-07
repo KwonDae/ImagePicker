@@ -126,6 +126,7 @@ compose.desktop {
 
 multiplatformResources {
     multiplatformResourcesPackage = "org.moneyking.imagepicker"
+    iosBaseLocalizationRegion = "ko" // default "en"
 }
 
 task("testClasses").doLast {

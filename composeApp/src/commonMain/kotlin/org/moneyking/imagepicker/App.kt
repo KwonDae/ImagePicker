@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import coil3.Uri
 import coil3.annotation.ExperimentalCoilApi
 import coil3.compose.setSingletonImageLoaderFactory
+import dev.icerock.moko.resources.compose.stringResource
 import org.moneyking.imagepicker.component.HorizontalPagerIndicator
 import org.moneyking.imagepicker.component.ImageCard
 import org.moneyking.imagepicker.component.ImagePickerButton
@@ -117,7 +118,7 @@ fun App(
                     onClick = {
                         singlePhotoPicker.launch()
                     },
-                    text = "Pick Single Image",
+                    text = stringResource(MR.strings.pick_single_image),
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp)
@@ -128,7 +129,7 @@ fun App(
                     onClick = {
                         multiplePhotoPicker.launch()
                     },
-                    text = "Pick Multiple Images",
+                    text = stringResource(MR.strings.pick_multiple_images),
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp)
@@ -139,7 +140,7 @@ fun App(
                     onClick = {
                         images = emptyList()
                     },
-                    text = "Init",
+                    text = stringResource(MR.strings.reset),
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp)
