@@ -21,7 +21,9 @@ import coil3.annotation.ExperimentalCoilApi
 import coil3.request.ImageRequest
 import coil3.request.SuccessResult
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.InputStream
@@ -61,9 +63,11 @@ private fun singlePhotoPicker(
         contract = ActivityResultContracts.PickVisualMedia(),
         onResult = { uri ->
             uri?.let {
-                scope.launch {
+                scope.launch(Dispatchers.IO) {
                     val byteArray = createByteArrayFromUri(context, it)
-                    onResult(byteArray)
+                    withContext(Dispatchers.Main) {
+                        onResult(byteArray)
+                    }
                 }
                 // uriToByteArray(contentResolver, it)?.let { onResult(it) }
             }
@@ -89,11 +93,13 @@ private fun multiplePhotoPicker(
     val multiplePhotoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickMultipleVisualMedia(),
         onResult = { uriList ->
-            scope.launch {
+            scope.launch(Dispatchers.IO) {
                 val byteArrayList = uriList.map { uri ->
                     createByteArrayFromUri(context, uri)
                 }
-                onResult(byteArrayList)
+                withContext(Dispatchers.Main) {
+                    onResult(byteArrayList)
+                }
             }
 //            onResult(uriList.map { uri ->
 //                uriToByteArray(contentResolver, uri)!!
