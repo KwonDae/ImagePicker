@@ -11,7 +11,7 @@ import kotlinx.coroutines.CoroutineScope
 @Composable
 actual fun rememberImagePickerLauncher(
     onResult: (List<ByteArray>) -> Unit,
-    scope: CoroutineScope?,
+    scope: CoroutineScope,
     selectionMode: SelectionMode,
 ): ImagePickerLauncher {
     TODO()

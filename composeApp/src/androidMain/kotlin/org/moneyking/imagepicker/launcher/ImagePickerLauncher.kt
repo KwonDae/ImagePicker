@@ -21,6 +21,7 @@ import coil3.annotation.ExperimentalCoilApi
 import coil3.request.ImageRequest
 import coil3.request.SuccessResult
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.InputStream
@@ -29,18 +30,22 @@ import java.io.InputStream
 @Composable
 actual fun rememberImagePickerLauncher(
     onResult: (List<ByteArray>) -> Unit,
-    scope: CoroutineScope?,
+    scope: CoroutineScope,
     selectionMode: SelectionMode,
 ): ImagePickerLauncher {
     return when (selectionMode) {
         SelectionMode.Single -> {
-            singlePhotoPicker { uri ->
-                onResult(listOf(uri))
-            }
+            singlePhotoPicker(
+                onResult = { uri -> onResult(listOf(uri)) },
+                scope = scope,
+            )
         }
 
         is SelectionMode.Multiple -> {
-            multiplePhotoPicker(onResult)
+            multiplePhotoPicker(
+                onResult = onResult,
+                scope = scope,
+            )
         }
     }
 }
@@ -48,15 +53,19 @@ actual fun rememberImagePickerLauncher(
 @Composable
 private fun singlePhotoPicker(
     onResult: (ByteArray) -> Unit,
+    scope: CoroutineScope,
 ): ImagePickerLauncher {
     val context = LocalContext.current
-    val contentResolver = LocalContext.current.contentResolver
+//    val contentResolver = LocalContext.current.contentResolver
     val singlePhotoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
         onResult = { uri ->
-            uri?.let { it ->
-                uriToByteArray(contentResolver, it)?.let { onResult(it) }
-                // createByteArrayFromUrl(context, it)
+            uri?.let {
+                scope.launch {
+                    val byteArray = createByteArrayFromUri(context, it)
+                    onResult(byteArray)
+                }
+                // uriToByteArray(contentResolver, it)?.let { onResult(it) }
             }
         }
     )
@@ -73,16 +82,22 @@ private fun singlePhotoPicker(
 @Composable
 private fun multiplePhotoPicker(
     onResult: (List<ByteArray>) -> Unit,
+    scope: CoroutineScope,
 ): ImagePickerLauncher {
     val context = LocalContext.current
-    val contentResolver = LocalContext.current.contentResolver
+//    val contentResolver = LocalContext.current.contentResolver
     val multiplePhotoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickMultipleVisualMedia(),
         onResult = { uriList ->
-            onResult(uriList.map { uri ->
-                uriToByteArray(contentResolver, uri)!!
-                // createByteArrayFromUrl(context, uri)
-            })
+            scope.launch {
+                val byteArrayList = uriList.map { uri ->
+                    createByteArrayFromUri(context, uri)
+                }
+                onResult(byteArrayList)
+            }
+//            onResult(uriList.map { uri ->
+//                uriToByteArray(contentResolver, uri)!!
+//            })
         }
     )
     val imagePickerLauncher = remember {
@@ -103,6 +118,7 @@ actual class ImagePickerLauncher actual constructor(
     }
 }
 
+// 동기적으로 uri 를 byteArray 로 변환(속도가 빠름)
 fun uriToByteArray(contentResolver: ContentResolver, uri: Uri): ByteArray? {
     var inputStream: InputStream? = null
     try {
@@ -124,8 +140,9 @@ fun uriToByteArray(contentResolver: ContentResolver, uri: Uri): ByteArray? {
     return null
 }
 
+// coil3 를 이용하여 비동기적으로 uri 를 byteArray 로 변환(속도가 느림)
 @OptIn(ExperimentalCoilApi::class)
-suspend fun createByteArrayFromUrl(context: Context, uri: Uri): ByteArray {
+suspend fun createByteArrayFromUri(context: Context, uri: Uri): ByteArray {
     val imageLoader = ImageLoader(context)
     val request = ImageRequest.Builder(context)
         .data(uri)
@@ -135,6 +152,8 @@ suspend fun createByteArrayFromUrl(context: Context, uri: Uri): ByteArray {
     val bitmap = result.asDrawable(context.resources).toBitmap()
 
     val stream = ByteArrayOutputStream()
-    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+    // PNG 형식으로 이미지를 압축할 경우, 시간이 너무 오래 걸림...
+    // bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
     return stream.toByteArray()
 }
