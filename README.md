@@ -12,3 +12,18 @@ This is a Kotlin Multiplatform project targeting Android, iOS, Desktop.
 
 
 Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+
+# ToDo
+- [x] 프로젝트에 필요한 라이브러리 의존성 추가
+- [x] 이미지 피커 UI 구성
+- [x] 공통 로직 작성(expect)
+- [x] Android 이미지 피커 로직 구현(actual)
+- [x] iOS 이미지 피커 로직 구현(actual)
+- [ ] [TouchLab SKIE](https://skie.touchlab.co/) 라이브러리 적용(CommonFlow 를 대체)
+- [x] [moko-resources](https://github.com/icerockdev/moko-resources) 라이브러리 적용(Font, String(i18n))
+- [x] [Decompose](https://github.com/arkivanov/Decompose) 라이브러리 적용(Navigation 및 ViewModel)
+
+# Article
+- [[Compose Multiplatform] Coil 을 이용한 Network Image Load](https://velog.io/@mraz3068/How-to-load-Network-Image-by-Coil-in-Compose-Multiplatform)
+- [[Compose Multiplatform] moko-resources 를 이용하여 font 적용하기](https://velog.io/@mraz3068/Compose-multiplatform-apply-font-by-moko-resources)
+- [[Compose Multiplatform] moko-resources 라이브러리를 통해 국제화(i18n) 적용하기](https://velog.io/@mraz3068/Compose-Multiplatform-i18n-by-moko-resources)

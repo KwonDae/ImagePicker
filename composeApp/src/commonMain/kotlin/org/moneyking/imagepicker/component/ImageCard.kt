@@ -26,7 +26,7 @@ fun ImageCard(
     modifier: Modifier = Modifier,
 ) {
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(16.dp),
         shape = RoundedCornerShape(16.dp),
