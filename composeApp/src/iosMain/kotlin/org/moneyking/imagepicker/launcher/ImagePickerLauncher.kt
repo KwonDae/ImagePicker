@@ -29,7 +29,7 @@ import platform.posix.memcpy
 
 @Composable
 actual fun rememberImagePickerLauncher(
-    onResult: (List<Any>) -> Unit,
+    onResult: (List<ByteArray>) -> Unit,
     scope: CoroutineScope?,
     selectionMode: SelectionMode,
 ): ImagePickerLauncher {

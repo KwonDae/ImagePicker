@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
+    <string name="main">Main Screen</string>
     <string name="pick_single_image">Pick Single Images</string>
     <string name="pick_multiple_images">Pick Multiple Images</string>
     <string name="reset">Init</string>
+    <string name="gallery_image">Gallery Image</string>
+    <string name="image_card">Image Card</string>
+    <string name="detail">Detail Screen</string>
+    <string name="back_button">Back Button</string>
+    <string name="detail_image">Detail Image</string>
 </resources>

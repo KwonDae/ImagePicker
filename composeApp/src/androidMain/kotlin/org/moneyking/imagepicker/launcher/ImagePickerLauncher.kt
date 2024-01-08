@@ -5,18 +5,30 @@
 
 package org.moneyking.imagepicker.launcher
 
+import android.content.ContentResolver
+import android.content.Context
+import android.graphics.Bitmap
+import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import coil3.Uri
-import coil3.toUri
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.graphics.drawable.toBitmap
+import coil3.ImageLoader
+import coil3.annotation.ExperimentalCoilApi
+import coil3.request.ImageRequest
+import coil3.request.SuccessResult
 import kotlinx.coroutines.CoroutineScope
+import java.io.ByteArrayOutputStream
+import java.io.IOException
+import java.io.InputStream
+
 
 @Composable
 actual fun rememberImagePickerLauncher(
-    onResult: (List<Any>) -> Unit,
+    onResult: (List<ByteArray>) -> Unit,
     scope: CoroutineScope?,
     selectionMode: SelectionMode,
 ): ImagePickerLauncher {
@@ -35,13 +47,16 @@ actual fun rememberImagePickerLauncher(
 
 @Composable
 private fun singlePhotoPicker(
-    onResult: (Uri) -> Unit,
+    onResult: (ByteArray) -> Unit,
 ): ImagePickerLauncher {
+    val context = LocalContext.current
+    val contentResolver = LocalContext.current.contentResolver
     val singlePhotoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
         onResult = { uri ->
-            uri?.let {
-                onResult(it.toString().toUri())
+            uri?.let { it ->
+                uriToByteArray(contentResolver, it)?.let { onResult(it) }
+                // createByteArrayFromUrl(context, it)
             }
         }
     )
@@ -57,13 +72,16 @@ private fun singlePhotoPicker(
 
 @Composable
 private fun multiplePhotoPicker(
-    onResult: (List<Any>) -> Unit,
+    onResult: (List<ByteArray>) -> Unit,
 ): ImagePickerLauncher {
+    val context = LocalContext.current
+    val contentResolver = LocalContext.current.contentResolver
     val multiplePhotoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickMultipleVisualMedia(),
         onResult = { uriList ->
             onResult(uriList.map { uri ->
-                uri.toString().toUri()
+                uriToByteArray(contentResolver, uri)!!
+                // createByteArrayFromUrl(context, uri)
             })
         }
     )
@@ -83,4 +101,40 @@ actual class ImagePickerLauncher actual constructor(
     actual fun launch() {
         onLaunch()
     }
+}
+
+fun uriToByteArray(contentResolver: ContentResolver, uri: Uri): ByteArray? {
+    var inputStream: InputStream? = null
+    try {
+        inputStream = contentResolver.openInputStream(uri)
+        if (inputStream != null) {
+            val byteArrayOutputStream = ByteArrayOutputStream()
+            val buffer = ByteArray(1024)
+            var bytesRead: Int
+            while (inputStream.read(buffer).also { bytesRead = it } != -1) {
+                byteArrayOutputStream.write(buffer, 0, bytesRead)
+            }
+            return byteArrayOutputStream.toByteArray()
+        }
+    } catch (e: IOException) {
+        e.printStackTrace()
+    } finally {
+        inputStream?.close()
+    }
+    return null
+}
+
+@OptIn(ExperimentalCoilApi::class)
+suspend fun createByteArrayFromUrl(context: Context, uri: Uri): ByteArray {
+    val imageLoader = ImageLoader(context)
+    val request = ImageRequest.Builder(context)
+        .data(uri)
+        .build()
+
+    val result = (imageLoader.execute(request) as SuccessResult).image
+    val bitmap = result.asDrawable(context.resources).toBitmap()
+
+    val stream = ByteArrayOutputStream()
+    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+    return stream.toByteArray()
 }
