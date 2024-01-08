@@ -21,6 +21,7 @@ Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-mu
 - [x] iOS 이미지 피커 로직 구현(actual)
 - [ ] [TouchLab SKIE](https://skie.touchlab.co/) 라이브러리 적용(CommonFlow 를 대체)
 - [x] [moko-resources](https://github.com/icerockdev/moko-resources) 라이브러리 적용(Font, String(i18n))
+- [x] [Decompose](https://github.com/arkivanov/Decompose) 라이브러리 적용(Navigation 및 ViewModel)
 
 # Article
 - [[Compose Multiplatform] Coil 을 이용한 Network Image Load](https://velog.io/@mraz3068/How-to-load-Network-Image-by-Coil-in-Compose-Multiplatform)
