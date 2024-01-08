@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -33,6 +35,7 @@ import org.moneyking.imagepicker.component.ImageCard
 import org.moneyking.imagepicker.component.ImagePickerButton
 import org.moneyking.imagepicker.launcher.SelectionMode
 import org.moneyking.imagepicker.launcher.rememberImagePickerLauncher
+import org.moneyking.imagepicker.util.extension.aspectRatioBasedOnOrientation
 import org.moneyking.imagepicker.util.newImageLoader
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalCoilApi::class)
@@ -70,7 +73,10 @@ fun App(
             SnackbarHost(snackbarHostState)
         }) { innerPadding ->
             Column(
-                modifier = Modifier.fillMaxSize().padding(innerPadding),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+                    .verticalScroll(rememberScrollState()),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
             ) {
@@ -85,14 +91,20 @@ fun App(
                             is Uri -> {
                                 ImageCard(
                                     imageUrl = image,
-                                    modifier = Modifier.fillMaxSize(),
+                                    modifier = Modifier
+                                        .aspectRatioBasedOnOrientation(1f)
+                                        .padding(16.dp)
+                                        .align(Alignment.CenterHorizontally),
                                 )
                             }
 
                             is ByteArray -> {
                                 ImageCard(
                                     imageUrl = image,
-                                    modifier = Modifier.fillMaxSize(),
+                                    modifier = Modifier
+                                        .aspectRatioBasedOnOrientation(1f)
+                                        .padding(16.dp)
+                                        .align(Alignment.CenterHorizontally),
                                 )
                             }
 
@@ -146,6 +158,7 @@ fun App(
                         .height(56.dp)
                         .padding(horizontal = 24.dp),
                 )
+                Spacer(modifier = Modifier.height(32.dp))
             }
         }
     }

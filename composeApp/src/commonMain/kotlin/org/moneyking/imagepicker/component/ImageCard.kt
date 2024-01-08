@@ -1,10 +1,6 @@
 package org.moneyking.imagepicker.component
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -25,30 +21,23 @@ fun ImageCard(
     modifier: Modifier = Modifier,
 ) {
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
+        modifier = modifier,
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = Gray200),
     ) {
-        Column(
-            modifier = modifier,
-            verticalArrangement = Arrangement.Center,
-        ) {
-            AsyncImage(
-                modifier = Modifier.fillMaxSize(),
-                model = AsyncImage(
-                    model = ImageRequest.Builder(LocalPlatformContext.current)
-                        .data(imageUrl)
-                        .crossfade(true)
-                        .build(),
-                    contentDescription = "Gallery Image",
-                    contentScale = ContentScale.Crop,
-                ),
+        AsyncImage(
+            modifier = Modifier.fillMaxSize(),
+            model = AsyncImage(
+                model = ImageRequest.Builder(LocalPlatformContext.current)
+                    .data(imageUrl)
+                    .crossfade(true)
+                    .build(),
+                contentDescription = "Gallery Image",
                 contentScale = ContentScale.Crop,
-                contentDescription = "Image Card",
-            )
-        }
+            ),
+            contentScale = ContentScale.Crop,
+            contentDescription = "Image Card",
+        )
     }
 }
 
@@ -58,29 +47,22 @@ fun ImageCard(
     modifier: Modifier = Modifier,
 ) {
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
+        modifier = modifier,
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = Gray200),
     ) {
-        Column(
-            modifier = modifier,
-            verticalArrangement = Arrangement.Center,
-        ) {
-            AsyncImage(
-                modifier = Modifier.fillMaxSize(),
-                model = AsyncImage(
-                    model = ImageRequest.Builder(LocalPlatformContext.current)
-                        .data(imageUrl)
-                        .crossfade(true)
-                        .build(),
-                    contentDescription = "Gallery Image",
-                    contentScale = ContentScale.Crop,
-                ),
+        AsyncImage(
+            modifier = Modifier.fillMaxSize(),
+            model = AsyncImage(
+                model = ImageRequest.Builder(LocalPlatformContext.current)
+                    .data(imageUrl)
+                    .crossfade(true)
+                    .build(),
+                contentDescription = "Gallery Image",
                 contentScale = ContentScale.Crop,
-                contentDescription = "Image Card",
-            )
-        }
+            ),
+            contentScale = ContentScale.Crop,
+            contentDescription = "Image Card",
+        )
     }
 }
