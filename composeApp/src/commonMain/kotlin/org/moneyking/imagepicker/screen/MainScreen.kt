@@ -21,10 +21,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontStyle
@@ -32,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.annotation.ExperimentalCoilApi
 import coil3.compose.setSingletonImageLoaderFactory
+import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import dev.icerock.moko.resources.compose.fontFamilyResource
 import dev.icerock.moko.resources.compose.stringResource
 import org.moneyking.imagepicker.MR
@@ -58,13 +56,12 @@ fun MainScreen(
     setSingletonImageLoaderFactory { context ->
         newImageLoader(context, debug)
     }
+    val imageList by component.imageList.subscribeAsState()
     val scope = rememberCoroutineScope()
-    var images by remember { mutableStateOf(listOf<ByteArray>()) }
     val singlePhotoPicker = rememberImagePickerLauncher(
         selectionMode = SelectionMode.Single,
         scope = scope,
         onResult = { imageData ->
-            images = imageData
             component.onEvent(MainScreenEvent.UpdateImageList(imageData))
         }
     )
@@ -72,14 +69,12 @@ fun MainScreen(
         selectionMode = SelectionMode.Multiple,
         scope = scope,
         onResult = { imageDataList ->
-            images = imageDataList
             component.onEvent(MainScreenEvent.UpdateImageList(imageDataList))
         }
     )
 
     MaterialTheme {
-        // val pageCount = component.imageList.value.size
-        val pageCount = images.size
+        val pageCount = imageList.size
         val pagerState = rememberPagerState(pageCount = { pageCount })
         val pagerHeight = 320.dp
 
@@ -106,15 +101,13 @@ fun MainScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
             ) {
-                // if (component.imageList.value.isNotEmpty()) {
-                if (images.isNotEmpty()) {
+                if (imageList.isNotEmpty()) {
                     HorizontalPager(
                         state = pagerState,
                         modifier = Modifier.height(pagerHeight),
                         contentPadding = PaddingValues(horizontal = 32.dp),
                     ) { index ->
-                        // val image = component.imageList.value[index]
-                        val image = images[index]
+                        val image = imageList[index]
                         ImageCard(
                             image = image,
                             modifier = Modifier
@@ -161,7 +154,6 @@ fun MainScreen(
                 Spacer(modifier = Modifier.height(16.dp))
                 ImagePickerButton(
                     onClick = {
-                        images = emptyList()
                         component.onEvent(MainScreenEvent.UpdateImageList(emptyList()))
                     },
                     text = stringResource(MR.strings.reset),
