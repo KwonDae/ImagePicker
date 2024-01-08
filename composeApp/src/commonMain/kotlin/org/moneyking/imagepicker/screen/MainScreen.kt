@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -40,6 +42,7 @@ import org.moneyking.imagepicker.launcher.SelectionMode
 import org.moneyking.imagepicker.launcher.rememberImagePickerLauncher
 import org.moneyking.imagepicker.navigation.MainScreenComponent
 import org.moneyking.imagepicker.navigation.MainScreenEvent
+import org.moneyking.imagepicker.util.extension.aspectRatioBasedOnOrientation
 import org.moneyking.imagepicker.util.newImageLoader
 
 @OptIn(
@@ -96,7 +99,10 @@ fun MainScreen(
             }
         ) { innerPadding ->
             Column(
-                modifier = Modifier.fillMaxSize().padding(innerPadding),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+                    .verticalScroll(rememberScrollState()),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center,
             ) {
@@ -112,7 +118,9 @@ fun MainScreen(
                         ImageCard(
                             image = image,
                             modifier = Modifier
-                                .fillMaxSize()
+                                .aspectRatioBasedOnOrientation(1f)
+                                .padding(16.dp)
+                                .align(Alignment.CenterHorizontally)
                                 .clickable {
                                     component.onEvent(MainScreenEvent.UpdateImageIndex(index))
                                     component.onEvent(MainScreenEvent.ClickImageCard(image))
@@ -162,6 +170,7 @@ fun MainScreen(
                         .height(56.dp)
                         .padding(horizontal = 24.dp),
                 )
+                Spacer(modifier = Modifier.height(32.dp))
             }
         }
     }
