@@ -8,16 +8,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import coil3.Uri
 import coil3.compose.AsyncImage
 import coil3.compose.LocalPlatformContext
 import coil3.request.ImageRequest
 import coil3.request.crossfade
+import dev.icerock.moko.resources.compose.stringResource
+import org.moneyking.imagepicker.MR
 import org.moneyking.imagepicker.theme.Gray200
 
 @Composable
 fun ImageCard(
-    imageUrl: Uri,
+    image: ByteArray,
     modifier: Modifier = Modifier,
 ) {
     Card(
@@ -26,43 +27,13 @@ fun ImageCard(
         colors = CardDefaults.cardColors(containerColor = Gray200),
     ) {
         AsyncImage(
+            model = ImageRequest.Builder(LocalPlatformContext.current)
+                .data(image)
+                .crossfade(true)
+                .build(),
+            contentDescription = stringResource(MR.strings.image_card),
             modifier = Modifier.fillMaxSize(),
-            model = AsyncImage(
-                model = ImageRequest.Builder(LocalPlatformContext.current)
-                    .data(imageUrl)
-                    .crossfade(true)
-                    .build(),
-                contentDescription = "Gallery Image",
-                contentScale = ContentScale.Crop,
-            ),
             contentScale = ContentScale.Crop,
-            contentDescription = "Image Card",
-        )
-    }
-}
-
-@Composable
-fun ImageCard(
-    imageUrl: ByteArray,
-    modifier: Modifier = Modifier,
-) {
-    Card(
-        modifier = modifier,
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = Gray200),
-    ) {
-        AsyncImage(
-            modifier = Modifier.fillMaxSize(),
-            model = AsyncImage(
-                model = ImageRequest.Builder(LocalPlatformContext.current)
-                    .data(imageUrl)
-                    .crossfade(true)
-                    .build(),
-                contentDescription = "Gallery Image",
-                contentScale = ContentScale.Crop,
-            ),
-            contentScale = ContentScale.Crop,
-            contentDescription = "Image Card",
         )
     }
 }

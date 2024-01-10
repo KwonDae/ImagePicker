@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     id ("dev.icerock.mobile.multiplatform-resources")
+    alias(libs.plugins.kotlinSerialization)
 }
 
 kotlin {
@@ -47,11 +48,13 @@ kotlin {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.engine.android)
+            implementation(libs.decompose)
         }
 
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
+            implementation(compose.materialIconsExtended)
             implementation(compose.material3)
             implementation(compose.ui)
             @OptIn(ExperimentalComposeLibrary::class)
@@ -59,6 +62,9 @@ kotlin {
             implementation(libs.coil.compose)
             implementation(libs.napier)
             implementation(libs.coil.network)
+            implementation(libs.decompose)
+            implementation(libs.decompose.jetbrains)
+            implementation(libs.zoomable)
         }
 
         iosMain.dependencies {

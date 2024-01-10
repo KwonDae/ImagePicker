@@ -29,8 +29,8 @@ import platform.posix.memcpy
 
 @Composable
 actual fun rememberImagePickerLauncher(
-    onResult: (List<Any>) -> Unit,
-    scope: CoroutineScope?,
+    onResult: (List<ByteArray>) -> Unit,
+    scope: CoroutineScope,
     selectionMode: SelectionMode,
 ): ImagePickerLauncher {
     @OptIn(ExperimentalForeignApi::class)
@@ -52,7 +52,7 @@ actual fun rememberImagePickerLauncher(
                     result.itemProvider.loadDataRepresentationForTypeIdentifier(
                         typeIdentifier = "public.image",
                     ) { nsData, _ ->
-                        scope?.launch(Dispatchers.Main) {
+                        scope.launch(Dispatchers.Main) {
                             nsData?.let {
                                 val bytes = ByteArray(it.length.toInt())
                                 memcpy(bytes.refTo(0), it.bytes, it.length)
@@ -64,7 +64,7 @@ actual fun rememberImagePickerLauncher(
                 }
 
                 dispatch_group_notify(dispatchGroup, dispatch_get_main_queue()) {
-                    scope?.launch(Dispatchers.Main) {
+                    scope.launch(Dispatchers.Main) {
                         onResult(imageData)
                     }
                 }

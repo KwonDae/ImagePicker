@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
+    <string name="main">메인 화면</string>
     <string name="pick_single_image">사진 한 장 선택하기</string>
     <string name="pick_multiple_images">사진 여러 장 선택하기</string>
     <string name="reset">초기화</string>
+    <string name="gallery_image">갤러리 사진</string>
+    <string name="image_card">사진 카드</string>
+    <string name="detail">상세 화면</string>
+    <string name="back_button">뒤로가기 버튼</string>
+    <string name="detail_image">상세 이미지</string>
 </resources>
