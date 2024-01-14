@@ -58,6 +58,7 @@
 - [ ] [TouchLab SKIE](https://skie.touchlab.co/) 라이브러리 적용(CommonFlow 를 대체) -> flow 를 사용하지 않음 
 
 
+## About
 This is a Kotlin Multiplatform project targeting Android, iOS.
 * `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
   It contains several subfolders:
